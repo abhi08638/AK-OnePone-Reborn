@@ -727,7 +727,7 @@ static int bigLittle_hotplug_probe(struct platform_device *pdev)
 	struct kobject *bigLittle_kobj;
 
 	bigLittle_kobj =
-		kobject_create_and_add("msm_mpdecision", kernel_kobj);
+		kobject_create_and_add("bigLittle_hotplug", kernel_kobj);
 	if (!bigLittle_kobj) {
 		pr_err("%s kobject create failed!\n",
 			__func__);
