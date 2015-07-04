@@ -1,10 +1,14 @@
 /*
  * BigLittle Hotplug Driver based on Bricked Hotplug
  *
+ * Copyright (c) 2015, Abhishek Gandhi <abhi08638@yahoo.com>
+ * Copyright (c) 2010-2015, The Linux Foundation. All rights reserved.
+ *
+ * Bricked Hotplug
+ *
  * Copyright (c) 2013-2014, Dennis Rassmann <showp1984@gmail.com>
  * Copyright (c) 2013-2014, Pranav Vashi <neobuddy89@gmail.com>
  * Copyright (c) 2010-2014, The Linux Foundation. All rights reserved.
- * Copyright (c) 2015, Abhishek Gandhi <abhi08638@yahoo.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -808,6 +812,6 @@ void biglittle_mpdec_exit(void)
 late_initcall(biglittle_mpdec_init);
 module_exit(biglittle_mpdec_exit);
 
-MODULE_AUTHOR("Pranav Vashi <neobuddy89@gmail.com>");
+MODULE_AUTHOR("Abhishek Gandhi <abhi08638@yahoo.com>");
 MODULE_DESCRIPTION("BigLittle Hotplug Driver");
 MODULE_LICENSE("GPLv2");
