@@ -223,19 +223,21 @@ static void __ref bigLittle_hotplug_work(struct work_struct *work) {
 	case MSM_MPDEC_IDLE:
 		break;
 	case MSM_MPDEC_DOWN:
-		cpu = get_slowest_cpu();
-		if (cpu > 0) {
-			if (cpu_online(cpu) && !check_cpuboost(cpu)
+		for_each_cpu((cpu), cpu_online_mask){
+			if (cpu > 0) {
+				if (cpu_online(cpu) && !check_cpuboost(cpu)
 					&& !check_down_lock(cpu))
-				cpu_down(cpu);
+					cpu_down(cpu);
+			}
 		}
 		break;
 	case MSM_MPDEC_UP:
-		cpu = cpumask_next_zero(0, cpu_online_mask);
-		if (cpu < DEFAULT_MAX_CPUS_ONLINE) {
-			if (!cpu_online(cpu)) {
-				cpu_up(cpu);
-				apply_down_lock(cpu);
+		for_each_cpu((cpu), !cpu_online_mask){
+			if (cpu < DEFAULT_MAX_CPUS_ONLINE) {
+				if (!cpu_online(cpu)) {
+					cpu_up(cpu);
+					apply_down_lock(cpu);
+				}
 			}
 		}
 		break;
