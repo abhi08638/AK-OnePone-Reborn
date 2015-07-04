@@ -83,8 +83,8 @@ static struct cpu_hotplug {
 	.bigLittle_enabled = HOTPLUG_ENABLED,
 };
 
-static unsigned int NwNs_Threshold[8] = {12, 0, 20, 7, 25, 10, 0, 18};
-static unsigned int TwTs_Threshold[8] = {140, 0, 140, 190, 140, 190, 0, 190};
+static unsigned int NwNs_Threshold[8] = {0, 100, 20, 40, 50, 70, 80, 100};
+static unsigned int TwTs_Threshold[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 struct down_lock {
 	unsigned int locked;
@@ -173,7 +173,7 @@ static int mp_decision(void) {
 	nr_cpu_online = num_online_cpus();
 
 	index = (nr_cpu_online - 1) * 2;
-	if ((nr_cpu_online < DEFAULT_MAX_CPUS_ONLINE) && ((rq_depth >= NwNs_Threshold[index]) && (rq_depth < (NwNs_Threshold[index+1])+1))) {
+	if ((nr_cpu_online < DEFAULT_MAX_CPUS_ONLINE) && ((rq_depth >= NwNs_Threshold[index]) && (rq_depth < NwNs_Threshold[index+1]))) {
 		if ((total_time >= TwTs_Threshold[index]) &&
 			(nr_cpu_online < hotplug.max_cpus_online)) {
 			new_state = MSM_MPDEC_UP;
