@@ -124,7 +124,10 @@ static int get_slowest_cpu(void) {
 		if (cpu == 0)
 			continue;
 		rate = cpufreq_quick_get(cpu);
-		if (rate > 0 && slow_rate <= rate) {
+		if(slow_rate==0){
+			slow_rate=rate;
+		}
+		else if (rate > 0 && slow_rate >= rate) {
 			slow_rate = rate;
 			slow_cpu = cpu;
 		}
@@ -134,15 +137,10 @@ static int get_slowest_cpu(void) {
 }
 
 static unsigned int get_slowest_cpu_rate(void) {
-	unsigned int cpu, rate, slow_rate = 0;
-
-	for_each_online_cpu(cpu) {
-		rate = cpufreq_quick_get(cpu);
-		if (rate > 0 && slow_rate <= rate)
-			slow_rate = rate;
-	}
-
-	return slow_rate;
+	unsigned int rate;
+	
+	rate = cpufreq_quick_get(0);
+	return rate;
 }
 
 static int mp_decision(void) {
